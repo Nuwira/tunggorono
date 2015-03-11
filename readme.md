@@ -28,7 +28,13 @@ SESSION_DRIVER=file
 
 Do migration to build the base data structure.
 ```
-php artisan migrate
+php artisan migrate --seed
+```
+
+Now you can login using this account.
+```
+Username: nuwira
+Password: nuwira
 ```
 
 ### License
