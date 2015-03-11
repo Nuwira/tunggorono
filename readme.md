@@ -6,9 +6,30 @@ Base application based on Laravel 5 to ease our job.
 
 ## Installation
 
-1. Pull the repository
-2. Do `composer install`
-3. Do `php artisan migrate --seed`
+Run this command from `path/where/to/install`.
+```
+composer create-project nuwira/tunggorono path/where/to/install --prefer-dist --dev
+```
+
+Edit the `.env` file, fill the database section.
+```
+APP_ENV=local
+APP_DEBUG=true
+APP_KEY=rKgGw2WsrWMAeO2fCJ7nUssERmp61uYW
+
+DB_HOST=localhost
+DB_DATABASE=homestead
+DB_USERNAME=homestead
+DB_PASSWORD=secret
+
+CACHE_DRIVER=file
+SESSION_DRIVER=file
+```
+
+Do migration to build the base data structure.
+```
+php artisan migrate
+```
 
 ### License
 
