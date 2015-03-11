@@ -48,7 +48,7 @@ class AuthTest extends TestCase
 	{
 		$response = $this->call('GET', 'auth/logout');
 		$this->assertEquals(302, $response->getStatusCode());
-        $this->assertRedirectedTo('auth/login');
+		$this->assertRedirectedTo('auth/login');
 	}
 
 }
