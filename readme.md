@@ -1,4 +1,4 @@
-# Tunggrono
+# Tunggorono
 
 [![Build Status](https://travis-ci.org/Nuwira/tunggorono.svg)](https://travis-ci.org/Nuwira/tunggorono)
 
