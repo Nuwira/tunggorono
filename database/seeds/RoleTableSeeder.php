@@ -9,11 +9,14 @@ class RoleTableSeeder extends Seeder {
 
     public function run()
     {
-        DB::table('roles')->truncate();
+        Role::truncate();
 
-        Role::create([
+        $role = Role::create([
             'id' => 1,
-            'role' => 'Superuser',
+            'name' => 'superuser',
+            'display' => 'Superuser',
+            'description' => 'With great power comes great responsibility',
+            'is_readonly' => 1,
         ]);
     }
 

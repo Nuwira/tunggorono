@@ -61,7 +61,13 @@ class AuthController extends Controller
 		$credentials = $request->only('username', 'password');
 
 		if ($this->auth->attempt($credentials, $request->has('remember'))) {
-			return redirect()->intended($this->redirectPath());
+    		if ($this->auth->user()->can(['login-web'])) {
+                return redirect()->intended($this->redirectPath());
+    		} else {
+                $this->auth->logout();
+
+                return redirect($this->loginPath())->withError('You do not have permission.');
+    		}
 		}
 
 		return redirect($this->loginPath())

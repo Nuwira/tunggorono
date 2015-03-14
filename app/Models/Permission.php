@@ -1,8 +1,8 @@
 <?php namespace App\Models;
 
-use Zizaco\Entrust\EntrustRole;
+use Zizaco\Entrust\EntrustPermission;
 
-class Role extends EntrustRole
+class Permission extends EntrustPermission
 {
     /**
 	 * The attributes that are guarded.
@@ -10,5 +10,4 @@ class Role extends EntrustRole
 	 * @var array
 	 */
 	protected $guarded = ['id', 'is_readonly'];
-
 }

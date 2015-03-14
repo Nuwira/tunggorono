@@ -146,6 +146,8 @@ return [
 		'App\Providers\EventServiceProvider',
 		'App\Providers\RouteServiceProvider',
 
+		'Zizaco\Entrust\EntrustServiceProvider',
+
 	],
 
 	/*
@@ -197,6 +199,7 @@ return [
 		'Form'      => 'Illuminate\Html\FormFacade',
 		'HTML'      => 'Illuminate\Html\HtmlFacade',
 
+        'Entrust'   => 'Zizaco\Entrust\EntrustFacade',
 	],
 
 ];

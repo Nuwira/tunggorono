@@ -4,12 +4,13 @@ use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Models\User;
+use App\Models\Role;
 
 class UserTableSeeder extends Seeder {
 
     public function run()
     {
-        DB::table('users')->truncate();
+        User::truncate();
 
         // Random Password
         //$password = str_random(8);
@@ -20,7 +21,6 @@ class UserTableSeeder extends Seeder {
             'name' => 'Nuwira',
             'email' => 'hi@nuwira.com',
             'password' => Hash::make($password),
-            'role_id' => 1,
         ]);
 
         $this->command->info('');
