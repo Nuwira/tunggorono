@@ -1,8 +1,10 @@
 <?php
 
-use App\Models\User;
 use App\Http\Controllers;
 use Illuminate\Support\Facades\Artisan;
+
+use App\Models\User;
+use App\Models\Role;
 
 class AuthTest extends TestCase
 {
@@ -18,25 +20,21 @@ class AuthTest extends TestCase
         Artisan::call('migrate', ['--seed' => true]);
 	}
 
-	/**
-	 * A login functional test.
-	 *
-	 * @return void
-	 */
-	public function testLogin()
+	private function addUserTesting()
 	{
-		$response = $this->call('GET', 'auth/login');
-		$this->assertEquals(200, $response->getStatusCode());
+        $role = new Role;
+        $role->name = 'testing';
+        $role->save();
+        $role->perms()->attach(2);
 
-		$response = $this->call('POST', 'auth/login', ['username' => 'nuwira', 'password' => 'gembira', '_token' => Session::token()]);
-		$this->assertEquals(302, $response->getStatusCode());
-		$this->assertRedirectedTo('auth/login');
-		$this->assertSessionHasErrors();
+        $user = new User;
+        $user->username = 'testing';
+        $user->password = Hash::make('testing');
+        $user->email = str_random(8).'@nuwira.co';
+        $user->is_active = 1;
+        $user->save();
 
-		$response = $this->call('POST', 'auth/login', ['username' => 'nuwira', 'password' => 'nuwira', '_token' => Session::token()]);
-
-		$this->assertEquals(302, $response->getStatusCode());
-		$this->assertRedirectedTo('dashboard');
+        $user->roles()->attach($role);
 	}
 
 	/**
@@ -44,8 +42,33 @@ class AuthTest extends TestCase
 	 *
 	 * @return void
 	 */
-	public function testLogout()
+	public function testLoginLogout()
 	{
+		// Add testing user without login-web permission
+		$this->addUserTesting();
+
+        // Check login page
+		$response = $this->call('GET', 'auth/login');
+		$this->assertEquals(200, $response->getStatusCode());
+
+        // Login with wrong password
+		$response = $this->call('POST', 'auth/login', ['username' => 'nuwira', 'password' => 'gembira', '_token' => Session::token()]);
+		$this->assertEquals(302, $response->getStatusCode());
+		$this->assertRedirectedTo('auth/login');
+		$this->assertSessionHasErrors();
+
+        // Login using user that have no permission
+		$response = $this->call('POST', 'auth/login', ['username' => 'testing', 'password' => 'testing', '_token' => Session::token()]);
+		$this->assertEquals(302, $response->getStatusCode());
+		$this->assertRedirectedTo('auth/login');
+		$this->assertSessionHasErrors();
+
+        // Login using right credentials
+		$response = $this->call('POST', 'auth/login', ['username' => 'nuwira', 'password' => 'nuwira', '_token' => Session::token()]);
+		$this->assertEquals(302, $response->getStatusCode());
+		$this->assertRedirectedTo('dashboard');
+
+        // Logout
 		$response = $this->call('GET', 'auth/logout');
 		$this->assertEquals(302, $response->getStatusCode());
 		$this->assertRedirectedTo('auth/login');

@@ -59,6 +59,7 @@ class AuthController extends Controller
 		]);
 
 		$credentials = $request->only('username', 'password');
+		$credentials['is_active'] = 1;
 
 		if ($this->auth->attempt($credentials, $request->has('remember'))) {
     		if ($this->auth->user()->can(['login-web'])) {

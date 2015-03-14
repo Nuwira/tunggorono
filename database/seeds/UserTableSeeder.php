@@ -21,6 +21,7 @@ class UserTableSeeder extends Seeder {
             'name' => 'Nuwira',
             'email' => 'hi@nuwira.com',
             'password' => Hash::make($password),
+            'is_active' => 1,
         ]);
 
         $this->command->info('');
