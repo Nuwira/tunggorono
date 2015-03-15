@@ -29,6 +29,11 @@ Route::group(['permissions' => ['edit-profile-web']], function()
     Route::post('user/save', ['as' => 'user-save', 'uses' => 'UserController@save']);
 });
 
+Route::group(['permissions' => ['system-info']], function()
+{
+    Route::get('system', ['as' => 'system-info', 'uses' => 'SystemController@index']);
+});
+
 Route::controllers(
 [
 	'auth' => 'Auth\AuthController',

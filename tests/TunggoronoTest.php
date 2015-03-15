@@ -209,4 +209,19 @@ class TunggoronoTest extends TestCase
 
         $this->logout();
 	}
+
+	/**
+	 * System info  test.
+	 *
+	 * @return void
+	 */
+	public function testSystem()
+	{
+        $this->login();
+
+        $response = $this->call('GET', 'system');
+        //$this->assertResponseOk();
+
+        $this->logout();
+	}
 }

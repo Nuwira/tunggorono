@@ -39,10 +39,16 @@ class CheckUserRolePermission
             $actions = $route->getAction();
 
             if (array_key_exists('permissions', $actions)) {
-                $permission = $actions['permissions'];
+                $permissions = $actions['permissions'];
 
-                if (!$user->can($permission)) {
-                    return redirect('dashboard')->withError(trans('errors.403'));
+                if (is_string($permissions)) {
+                    $permissions = explode(',', $permissions);
+                }
+
+                foreach ($permissions as $permission) {
+                    if (!$user->can($permission)) {
+                        return redirect('dashboard')->withError(trans('errors.403'));
+                    }
                 }
             }
         }

@@ -7,7 +7,7 @@ use App\Models\User;
 use Date;
 use Format;
 
-class UserController extends HomeController
+class UserController extends Controller
 {
 	/**
 	 * Variable used to hold data in view.
