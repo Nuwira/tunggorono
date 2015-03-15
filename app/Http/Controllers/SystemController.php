@@ -1,11 +1,6 @@
 <?php namespace App\Http\Controllers;
 
 use Illuminate\Auth\Guard;
-use Illuminate\Http\Request;
-use App\Models\User;
-
-use Date;
-use Format;
 
 use Illuminate\Support\Facades\DB;
 
@@ -42,9 +37,6 @@ class SystemController extends Controller
 	public function index()
 	{
 		$laravel = app();
-		$request = new Request;
-		//dd($request->server());
-
 		$this->data['infos'] = [
             'laravel' => $laravel::VERSION,
 		    'environment' => getenv('APP_ENV'),
