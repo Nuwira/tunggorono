@@ -6,8 +6,6 @@ use Illuminate\Support\Facades\Artisan;
 use App\Models\User;
 use App\Models\Role;
 
-use Illuminate\Hashing\BcryptHasher;
-
 class TunggoronoTest extends TestCase
 {
     public function __construct()
@@ -160,6 +158,9 @@ class TunggoronoTest extends TestCase
 		$response = $this->call('POST', 'user/save', [
 		    'id' => '1',
 		    'name' => 'Nuwira '.$rand,
+		    'birthdate' => '22 March 1984',
+		    'phone' => '0856 130 30 86',
+		    'sex' => 'M',
 		    '_token' => Session::token()
         ]);
 		$this->assertResponseStatus(302);

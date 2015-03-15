@@ -4,6 +4,9 @@ use Illuminate\Auth\Guard;
 use Illuminate\Http\Request;
 use App\Models\User;
 
+use Date;
+use Format;
+
 class UserController extends HomeController
 {
 	/**
@@ -51,6 +54,16 @@ class UserController extends HomeController
 
         $password = $request->get('password');
         $password2 = $request->get('password2');
+
+        if (!empty($input['birthdate']) && $input['birthdate'] != '0000-00-00') {
+            $input['birthdate'] = Date::parse($input['birthdate'])->format('Y-m-d');
+        } else {
+            unset($input['birthdate']);
+        }
+
+        if (!empty($input['phone'])) {
+            $input['phone'] = Format::phone($input['phone']);
+        }
 
         // Password
         if (!empty($password) && !empty($password2) && $password == $password2) {

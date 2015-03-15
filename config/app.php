@@ -147,6 +147,8 @@ return [
 		'App\Providers\RouteServiceProvider',
 
 		'Zizaco\Entrust\EntrustServiceProvider',
+		'Matriphe\Format\FormatServiceProvider',
+		'Jenssegers\Date\DateServiceProvider',
 
 	],
 
@@ -200,6 +202,8 @@ return [
 		'HTML'      => 'Illuminate\Html\HtmlFacade',
 
         'Entrust'   => 'Zizaco\Entrust\EntrustFacade',
+        'Format'    => 'Matriphe\Format\Facades\FormatFacade',
+        'Date'      => 'Jenssegers\Date\Date',
 	],
 
 ];
