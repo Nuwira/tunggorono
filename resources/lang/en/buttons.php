@@ -18,9 +18,11 @@ return [
 	"logout" => "Logout",
 	"togglenav" => "Toggle Navigation",
 	"toggle" => "Toggle",
-
 	"edit" => "Edit",
 	"delete" => "Delete",
 	"view" => "View",
+	"activate" => "Activate",
+	"deactivate" => "Deactivate",
+	"send" => "Send",
 
 ];

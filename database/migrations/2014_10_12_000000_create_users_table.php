@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration {
 			$table->string('password', 60);
 			$table->string('phone')->nullable();
 			$table->enum('sex',['M', 'F'])->nullable();
+			$table->date('birthdate')->nullable();
 			$table->boolean('is_active')->default(0)->index();
 			$table->string('activation_key',32)->nullable();
 			$table->rememberToken();

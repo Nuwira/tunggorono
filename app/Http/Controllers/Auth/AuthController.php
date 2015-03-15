@@ -47,6 +47,16 @@ class AuthController extends Controller
 	}
 
 	/**
+	 * Show the application login form.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function getLogin()
+	{
+		return view('auth.login')->with(['auth' => $this->auth]);
+	}
+
+	/**
 	 * Handle a login request to the application.
 	 *
 	 * @param  \Illuminate\Http\Request  $request
@@ -62,12 +72,11 @@ class AuthController extends Controller
 		$credentials['is_active'] = 1;
 
 		if ($this->auth->attempt($credentials, $request->has('remember'))) {
-    		if ($this->auth->user()->can(['login-web'])) {
+    		if ($this->auth->user()->can('login-web')) {
                 return redirect()->intended($this->redirectPath());
     		} else {
                 $this->auth->logout();
-
-                return redirect($this->loginPath())->withError('You do not have permission.');
+                return redirect()->guest($this->loginPath())->withErrors(['permission' => trans('errors.403')]);
     		}
 		}
 

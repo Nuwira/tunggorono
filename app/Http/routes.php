@@ -11,7 +11,8 @@
 |
 */
 
-Route::get('/', function() {
+Route::get('/', function()
+{
     if (Auth::check()) {
         return redirect('dashboard');
     } else {
@@ -21,7 +22,15 @@ Route::get('/', function() {
 
 Route::get('dashboard', ['as' => 'dashboard', 'uses' => 'HomeController@index']);
 
-Route::controllers([
+// Profile
+Route::group(['permissions' => ['edit-profile-web']], function()
+{
+    Route::get('profile', ['as' => 'user-profile', 'uses' => 'UserController@profile']);
+    Route::post('user/save', ['as' => 'user-save', 'uses' => 'UserController@save']);
+});
+
+Route::controllers(
+[
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);

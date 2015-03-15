@@ -1,5 +1,7 @@
 <?php namespace App\Http\Controllers;
 
+use Illuminate\Auth\Guard;
+
 class HomeController extends Controller {
 
 	/*
@@ -14,13 +16,23 @@ class HomeController extends Controller {
 	*/
 
 	/**
+	 * Variable used to hold data in view.
+	 *
+	 * @var array
+	 */
+	public $data = [];
+
+	/**
 	 * Create a new controller instance.
 	 *
+	 * @param Illuminate\Auth\Guard $auth
 	 * @return void
 	 */
-	public function __construct()
+	public function __construct(Guard $auth)
 	{
-		$this->middleware('auth');
+		$this->middleware('permission');
+
+		$this->auth = $this->data['auth'] = $auth;
 	}
 
 	/**
@@ -30,7 +42,7 @@ class HomeController extends Controller {
 	 */
 	public function index()
 	{
-		return view('home');
+		return view('home')->with($this->data);
 	}
 
 }

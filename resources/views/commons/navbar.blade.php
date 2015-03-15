@@ -12,7 +12,7 @@
 
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav navbar-right">
-				@if (Auth::guest())
+				@if ($auth->guest())
 					<li><a href="{{ url('auth/login') }}">{{ trans('buttons.login') }}</a></li>
 					<!--<li><a href="/auth/register">Register</a></li>-->
 				@else
@@ -20,7 +20,7 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
     						@if (Auth::user()->can('edit-profile-web'))
-    						<li><a href="/auth/logout">Edit Profile</a></li>
+    						<li><a href="{{ route('user-profile') }}">Edit Profile</a></li>
     						<li class="divider"></li>
     						@endif
 							<li><a href="{{ url('auth/logout') }}">{{ trans('buttons.logout') }}</a></li>
