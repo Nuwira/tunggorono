@@ -27,7 +27,9 @@ class UserController extends HomeController
 		$this->middleware('auth');
         $this->middleware('permission');
 
-		$this->auth = $this->data['auth'] = $auth;
+		$this->auth = $this->data['auth'] = $this->auth = $auth;
+
+		$this->data['sitetitle'] = trans('users.titles.profile');
 	}
 
 	/**
@@ -37,6 +39,7 @@ class UserController extends HomeController
 	 */
 	public function profile()
 	{
+		$this->data['user'] = $this->auth->user();
 		return view('users.form')->with($this->data);
 	}
 
@@ -55,7 +58,10 @@ class UserController extends HomeController
         $password = $request->get('password');
         $password2 = $request->get('password2');
 
-        if (!empty($input['birthdate']) && $input['birthdate'] != '0000-00-00') {
+        $success = [];
+        array_push($success, trans('success.profile'));
+
+		if (!empty($input['birthdate']) && $input['birthdate'] != '0000-00-00') {
             $input['birthdate'] = Date::parse($input['birthdate'])->format('Y-m-d');
         } else {
             unset($input['birthdate']);
@@ -68,13 +74,14 @@ class UserController extends HomeController
         // Password
         if (!empty($password) && !empty($password2) && $password == $password2) {
             $input['password'] = bcrypt($password);
+            array_push($success, trans('success.password'));
         }
 
         $user = User::find($id);
         $user->fill($input);
         $user->save();
 
-		return redirect('profile');
+        return redirect('profile')->with('success', $success);
 	}
 
 }

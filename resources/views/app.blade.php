@@ -22,6 +22,8 @@
 <body>
 	@include('commons.navbar')
 
+	@include('commons.notif')
+
 	@yield('content')
 
 	<!-- Scripts -->

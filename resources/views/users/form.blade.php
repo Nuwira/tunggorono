@@ -5,30 +5,38 @@
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1">
 			<div class="panel panel-default">
-				<div class="panel-heading">{{ trans('users.titles.profile') }}</div>
+				<div class="panel-heading">{{ $sitetitle or trans('users.titles.profile') }}</div>
 
 				<div class="panel-body">
-					{!! Form::open(['route' => 'user-save', 'class' => 'form-horizontal', 'role' => 'form']) !!}
-						<input type="hidden" name="_token" value="{{ csrf_token() }}">
+					{!! Form::open(['route' => 'user-save', 'class' => 'form-horizontal', 'role' => 'form', 'files' => true]) !!}
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <input type="hidden" name="id" value="{{ $user->id }}">
 
 						<div class="form-group">
 							<label class="col-md-4 control-label">{{ trans('auth.username') }}</label>
 							<div class="col-md-6">
-								<input type="text" class="form-control" name="username" value="{{ $auth->user()->username or old('username') }}" {{ (!empty($auth->user()->id) ? 'disabled' : 'required') }}>
+								<input type="text" class="form-control" name="username" value="{{ $user->username or old('username') }}" {{ (!empty($user->id) ? 'disabled' : 'required') }}>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-md-4 control-label">{{ trans('users.role') }}</label>
+							<div class="col-md-6">
+								<p class="form-control-static">{{ $user->roles[0]->role }}</p>
 							</div>
 						</div>
 
 						<div class="form-group">
 							<label class="col-md-4 control-label">{{ trans('users.name') }}</label>
 							<div class="col-md-6">
-								<input type="text" class="form-control" name="name" value="{{ $auth->user()->name or old('name') }}" required>
+								<input type="text" class="form-control" name="name" value="{{ $user->name or old('name') }}" required>
 							</div>
 						</div>
 
 						<div class="form-group">
 							<label class="col-md-4 control-label">{{ trans('users.email') }}</label>
 							<div class="col-md-6">
-								<input type="email" class="form-control" name="email" value="{{ $auth->user()->email or old('email') }}" required>
+								<input type="email" class="form-control" name="email" value="{{ $user->email or old('email') }}" required>
 							</div>
 						</div>
 
@@ -37,7 +45,7 @@
 						<div class="form-group">
 							<label class="col-md-4 control-label">{{ trans('users.birthdate') }}</label>
 							<div class="col-md-6">
-								<input type="date" class="form-control" name="birthdate" value="{{ $auth->user()->birthdate or old('birthdate') }}">
+								<input type="date" class="form-control" name="birthdate" value="{{ $user->birthdate or old('birthdate') }}">
 							</div>
 						</div>
 
@@ -45,10 +53,10 @@
 							<label class="col-md-4 control-label">{{ trans('users.sex') }}</label>
 							<div class="col-md-6">
 								<label class="radio-inline">
-								{!! Form::radio('sex', 'M', (!empty($auth->user()->sex) && $auth->user()->sex == 'M' ? 'M' : '')) !!} {{ trans('users.gender.M') }}
+								{!! Form::radio('sex', 'M', (!empty($user->sex) && $user->sex == 'M' ? 'M' : '')) !!} {{ trans('users.gender.M') }}
 								</label>
 								<label class="radio-inline">
-								{!! Form::radio('sex', 'F', (!empty($auth->user()->sex) && $auth->user()->sex == 'F' ? 'F' : '')) !!} {{ trans('users.gender.F') }}
+								{!! Form::radio('sex', 'F', (!empty($user->sex) && $user->sex == 'F' ? 'F' : '')) !!} {{ trans('users.gender.F') }}
 								</label>
 							</div>
 						</div>
@@ -56,7 +64,7 @@
 						<div class="form-group">
 							<label class="col-md-4 control-label">{{ trans('users.phone') }}</label>
 							<div class="col-md-6">
-								<input type="tel" class="form-control" name="phone" value="{{ $auth->user()->phone or old('phone') }}">
+								<input type="tel" class="form-control" name="phone" value="{{ $user->phone or old('phone') }}">
 							</div>
 						</div>
 

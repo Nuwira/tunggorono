@@ -26,6 +26,7 @@ return [
     	'M' => 'Male',
     	'F' => 'Female',
 	],
+	'role' => 'Role',
 
     'active' => 'Active',
     'inactive' => 'Inactive',

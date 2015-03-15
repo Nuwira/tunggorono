@@ -7,31 +7,20 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">{{ trans('auth.title') }}</div>
 				<div class="panel-body">
-					@if (count($errors) > 0)
-						<div class="alert alert-danger">
-							<strong>Whoops!</strong> There were some problems with your input.<br><br>
-							<ul>
-								@foreach ($errors->all() as $error)
-									<li>{{ $error }}</li>
-								@endforeach
-							</ul>
-						</div>
-					@endif
-
 					{!! Form::open(['url' => 'auth/login', 'class' => 'form-horizontal', 'role' => 'form']) !!}
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 						<div class="form-group">
 							<label class="col-md-4 control-label">{{ trans('auth.username') }}</label>
 							<div class="col-md-6">
-								<input type="text" class="form-control" name="username" value="{{ old('username') }}">
+								<input type="text" class="form-control" name="username" value="{{ old('username') }}" required>
 							</div>
 						</div>
 
 						<div class="form-group">
 							<label class="col-md-4 control-label">{{ trans('auth.password') }}</label>
 							<div class="col-md-6">
-								<input type="password" class="form-control" name="password">
+								<input type="password" class="form-control" name="password" required>
 							</div>
 						</div>
 

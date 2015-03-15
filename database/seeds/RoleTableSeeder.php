@@ -14,7 +14,7 @@ class RoleTableSeeder extends Seeder {
         $role = Role::create([
             'id' => 1,
             'name' => 'superuser',
-            'display' => 'Superuser',
+            'role' => 'Superuser',
             'description' => 'With great power comes great responsibility',
             'is_readonly' => 1,
         ]);

@@ -73,7 +73,7 @@ class AuthController extends Controller
 
 		if ($this->auth->attempt($credentials, $request->has('remember'))) {
     		if ($this->auth->user()->can('login-web')) {
-                return redirect()->intended($this->redirectPath());
+                return redirect()->intended($this->redirectPath())->with('success', trans('success.loggedin',['name' => $this->auth->user()->name]));
     		} else {
                 $this->auth->logout();
                 return redirect()->guest($this->loginPath())->withErrors(['permission' => trans('errors.403')]);
