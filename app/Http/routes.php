@@ -26,12 +26,20 @@ Route::get('dashboard', ['as' => 'dashboard', 'uses' => 'HomeController@index'])
 Route::group(['permissions' => ['edit-profile-web']], function()
 {
     Route::get('profile', ['as' => 'user-profile', 'uses' => 'UserController@profile']);
-    Route::post('user/save', ['as' => 'user-save', 'uses' => 'UserController@save']);
+    Route::post('user/update', ['as' => 'user-update', 'uses' => 'UserController@update']);
 });
 
-Route::group(['permissions' => ['system-info']], function()
+// System Info
+Route::get('system', ['as' => 'system-info', 'uses' => 'SystemController@index', 'permissions' => ['system-info']]);
+
+// Users
+Route::group(['permissions' => ['users-list']], function()
 {
-    Route::get('system', ['as' => 'system-info', 'uses' => 'SystemController@index']);
+    Route::get('users', ['as' => 'users-list', 'uses' => 'UserController@index']);
+    Route::get('users/add', ['as' => 'user-add', 'uses' => 'UserController@add', 'permissions' => ['user-add']]);
+    Route::get('users/info/{id}', ['as' => 'user-info', 'uses' => 'UserController@info', 'permissions' => ['user-info']]);
+    Route::get('users/edit/{id}', ['as' => 'user-edit', 'uses' => 'UserController@edit', 'permissions' => ['user-edit']]);
+    Route::post('user/save', ['as' => 'user-save', 'uses' => 'UserController@save']);
 });
 
 Route::controllers(

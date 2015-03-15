@@ -10,7 +10,7 @@
 				<div class="panel-body">
 					{!! Form::open(['route' => 'user-save', 'class' => 'form-horizontal', 'role' => 'form', 'files' => true]) !!}
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <input type="hidden" name="id" value="{{ $user->id or '' }}">
+                        <input type="hidden" name="id" value="{{ $user->id }}">
 
 						<div class="form-group">
 							<label class="col-md-4 control-label">{{ trans('auth.username') }}</label>
@@ -22,7 +22,7 @@
 						<div class="form-group">
 							<label class="col-md-4 control-label">{{ trans('users.role') }}</label>
 							<div class="col-md-6">
-								{!! Form::select('role', $roles, (!empty($user->roles[0]->id) ? $user->roles[0]->id : ''), ['class' => 'form-control']) !!}
+								<p class="form-control-static">{{ $user->roles[0]->role }}</p>
 							</div>
 						</div>
 
@@ -87,7 +87,7 @@
 						<div class="form-group">
 							<div class="col-md-6 col-md-offset-4">
 								<button type="submit" class="btn btn-primary">
-									{{ trans('buttons.save') }}
+									{{ trans('buttons.update') }}
 								</button>
 
 								<!--<a href="/password/email">Forgot Your Password?</a>-->

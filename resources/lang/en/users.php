@@ -13,7 +13,10 @@ return [
 
 	'titles' => [
         'profile' => 'Edit Profile',
-        'lists' => 'User Lists',
+        'management' => 'User Management',
+        'edit' => 'Edit User <strong>:username</strong>',
+        'add' => 'Add User',
+        'info' => 'User Info <strong>:username</strong>',
 	],
 
 	'name' => 'Name',
