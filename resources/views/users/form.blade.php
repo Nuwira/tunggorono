@@ -73,14 +73,14 @@
 						<div class="form-group">
 							<label class="col-md-4 control-label">{{ trans('auth.password') }}</label>
 							<div class="col-md-6">
-								<input type="password" class="form-control" name="password">
+								<input type="password" class="form-control" name="password" {{ (empty($user) ? 'required' : '') }}>
 							</div>
 						</div>
 
 						<div class="form-group">
 							<label class="col-md-4 control-label">{{ trans('users.password') }}</label>
 							<div class="col-md-6">
-								<input type="password" class="form-control" name="password2">
+								<input type="password" class="form-control" name="password2" {{ (empty($user) ? 'required' : '') }}>
 							</div>
 						</div>
 
@@ -89,6 +89,7 @@
 								<button type="submit" class="btn btn-primary">
 									{{ trans('buttons.save') }}
 								</button>
+								<a class="btn btn-default" href="{{ route('users-list') }}"><i class="fa fa-arrow-left"></i> {{ trans('users.titles.management') }}</a>
 
 								<!--<a href="/password/email">Forgot Your Password?</a>-->
 							</div>

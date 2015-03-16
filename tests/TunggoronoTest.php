@@ -155,7 +155,7 @@ class TunggoronoTest extends TestCase
 
 		$rand = str_random(8);
 
-		$response = $this->call('POST', 'user/save', [
+		$response = $this->call('POST', 'user/update', [
 		    'id' => '1',
 		    'name' => 'Nuwira '.$rand,
 		    'birthdate' => '22 March 1984',
@@ -187,7 +187,7 @@ class TunggoronoTest extends TestCase
 
 		$rand = str_random(8);
 
-		$response = $this->call('POST', 'user/save', [
+		$response = $this->call('POST', 'user/update', [
 		    'id' => '1',
 		    'password' => 'tunggorono',
 		    'password2' => 'tunggorono',
@@ -206,6 +206,44 @@ class TunggoronoTest extends TestCase
 
         $response = $this->call('GET', 'profile');
         $this->assertResponseOk();
+
+        $this->logout();
+	}
+
+	/**
+	 * User management functional test.
+	 *
+	 * @return void
+	 */
+	public function testUserManagement()
+	{
+        $this->login();
+
+        $response = $this->call('GET', 'users');
+        $this->assertResponseOk();
+
+		$response = $this->call('GET', 'users/add');
+        $this->assertResponseOk();
+
+        $response = $this->call('POST', 'user/save', [
+		    'username' => 'kampret',
+		    'role' => 1,
+		    'name' => 'Kampret Mencret',
+		    'email' => 'kampret@kalong.com',
+		    'password' => 'tunggorono',
+		    'password2' => 'tunggorono',
+		    '_token' => Session::token()
+        ]);
+		$this->assertResponseStatus(302);
+        $this->assertRedirectedTo('users/edit/3');
+
+        $response = $this->call('POST', 'user/save', [
+		    'id' => 2,
+		    'name' => 'Silit Kadal',
+		    '_token' => Session::token()
+        ]);
+		$this->assertResponseStatus(302);
+        $this->assertRedirectedTo('users/edit/2');
 
         $this->logout();
 	}

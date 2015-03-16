@@ -34,4 +34,5 @@ return [
     'active' => 'Active',
     'inactive' => 'Inactive',
 
+    'search' => 'Search user by username, name, email..',
 ];

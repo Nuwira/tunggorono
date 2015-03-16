@@ -62,11 +62,7 @@
 
                         <div class="form-group">
 							<div class="col-md-6 col-md-offset-4">
-								<button type="submit" class="btn btn-primary">
-									{{ trans('buttons.update') }}
-								</button>
-
-								<!--<a href="/password/email">Forgot Your Password?</a>-->
+								<a class="btn btn-default" href="{{ route('users-list') }}"><i class="fa fa-arrow-left"></i> {{ trans('users.titles.management') }}</a>
 							</div>
 						</div>
 					</div>

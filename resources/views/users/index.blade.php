@@ -7,13 +7,32 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">
     				{{ $sitetitle or trans('users.titles.management') }}
-    				@if ($auth->user()->can('user-add'))
-                    <a href="{{ route('user-add') }}" class="btn btn-primary pull-right btn-xs">{{ trans('users.titles.add') }}</a>
-                    @endif
                 </div>
 
 				<div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-5">
 
+                        </div>
+                        <div class="col-md-5">
+                            {!! Form::open(['route' => 'users-list', 'method' => 'get', 'class' => 'form', 'role' => 'form']) !!}
+                            <div class="input-group">
+                            <input type="text" class="form-control" name="search" value="{{ $search or '' }}" placeholder="{{ trans('users.search') }}">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+                            </span>
+                            </div>
+                            </form>
+
+                        </div>
+                        <div class="col-md-2">
+                            @if ($auth->user()->can('user-add'))
+                            <a href="{{ route('user-add') }}" class="btn btn-primary pull-right">{{ trans('users.titles.add') }}</a>
+                            @endif
+                        </div>
+                    </div>
+
+                    <hr>
 
                     @if (!empty($users))
                         <table class="table">

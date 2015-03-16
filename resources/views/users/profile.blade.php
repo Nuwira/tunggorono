@@ -8,7 +8,7 @@
 				<div class="panel-heading">{!! $sitetitle or trans('users.titles.profile') !!}</div>
 
 				<div class="panel-body">
-					{!! Form::open(['route' => 'user-save', 'class' => 'form-horizontal', 'role' => 'form', 'files' => true]) !!}
+					{!! Form::open(['route' => 'user-update', 'class' => 'form-horizontal', 'role' => 'form', 'files' => true]) !!}
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <input type="hidden" name="id" value="{{ $user->id }}">
 

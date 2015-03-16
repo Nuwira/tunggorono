@@ -5,7 +5,7 @@
         	<div class="alert alert-danger">
         		<ul class="list-unstyled">
         			@foreach ($errors->all() as $error)
-        				<li>{{ $error }}</li>
+        				<li>{!! $error !!}</li>
         			@endforeach
         		</ul>
         	</div>
@@ -14,11 +14,11 @@
             @if (is_array(Session::get('success')) && count(Session::get('success')) > 0)
                 <ul class="list-unstyled">
         			@foreach (Session::get('success') as $success)
-        				<li>{{ $success }}</li>
+        				<li>{!! $success !!}</li>
         			@endforeach
         		</ul>
             @else
-            {{ Session::get('success') }}
+            {!! Session::get('success') !!}
             @endif
             </div>
         @endif

@@ -14,5 +14,6 @@ return [
 	'loggedin' => "Welcome back, :name!",
 	'profile' => 'Your profile has been saved!',
 	'password' => 'Your password has been updated!',
+	'user' => 'User <strong>:username</strong> has been saved!',
 
 ];
