@@ -4,7 +4,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1">
-			<div class="panel panel-default">
+			<div class="panel panel-{{ (!empty($user) && $user->is_active == 0 ? 'danger' : 'default') }}">
 				<div class="panel-heading">{!! $sitetitle or trans('users.titles.profile') !!}</div>
 
 				<div class="panel-body">
@@ -15,7 +15,7 @@
 						<div class="form-group">
 							<label class="col-md-4 control-label">{{ trans('auth.username') }}</label>
 							<div class="col-md-6">
-								<input type="text" class="form-control" name="username" value="{{ $user->username or old('username') }}" {{ (!empty($user->id) ? 'disabled' : 'required') }}>
+								<input type="text" class="form-control" name="username" value="{{ $user->username or old('username') }}" {{ (!empty($user->id) ? 'readonly' : 'required') }}>
 							</div>
 						</div>
 
@@ -83,6 +83,22 @@
 								<input type="password" class="form-control" name="password2" {{ (empty($user) ? 'required' : '') }}>
 							</div>
 						</div>
+
+						<hr>
+
+						<div class="form-group">
+							<label class="col-md-4 control-label">{{ trans('users.status') }}</label>
+							<div class="col-md-6">
+								<label class="radio-inline">
+								<input type="radio" name="is_active" value="1" {{ (!empty($user) && (bool) $user->is_active == true ? 'checked' : '') }} required> {{ trans('users.active') }}
+								</label>
+								<label class="radio-inline">
+								<input type="radio" name="is_active" value="0" {{ (!empty($user) && (bool) $user->is_active == false ? 'checked' : '') }} required> {{ trans('users.inactive') }}
+								</label>
+							</div>
+						</div>
+
+						<hr>
 
 						<div class="form-group">
 							<div class="col-md-6 col-md-offset-4">

@@ -9,6 +9,9 @@ use App\Models\Role;
 use Date;
 use Format;
 
+use App\Http\Requests\SaveUserValidationRequest;
+use App\Http\Requests\SaveProfileValidationRequest;
+
 class UserController extends Controller
 {
 	/**
@@ -24,9 +27,10 @@ class UserController extends Controller
 	 * @param Illuminate\Auth\Guard $auth
 	 * @param App\Models\User $user
 	 * @param App\Models\Role $role
+	 * @param Illuminate\Http\Request $request
 	 * @return void
 	 */
-	public function __construct(Guard $auth, User $user, Role $role)
+	public function __construct(Guard $auth, User $user, Role $role, Request $request)
 	{
 		$this->middleware('auth');
         $this->middleware('permission');
@@ -34,30 +38,68 @@ class UserController extends Controller
 		$this->auth = $this->data['auth'] = $auth;
 		$this->user = $user;
 		$this->role = $role;
+		$this->request = $request;
 	}
 
 	/**
 	 * User management.
 	 *
-	 * @param Illuminate\Http\Request $request
 	 * @return Response
 	 */
-	public function index(Request $request)
+	public function index()
 	{
-		$search = $this->data['search'] = $request->get('search');
+		$search = $this->data['search'] = trim($this->request->get('search'));
 
-		$users = $this->user;
+		$this->data['users'] = $this->user->listMinRole($this->auth->user()->roles[0]->id);
+
+        if (!empty($search)) {
+    		$this->data['users'] = $this->data['users']->where(function($query) use ($search) {
+                $search = '%'.str_slug($search,'%').'%';
+                $query->where($this->user->table().'.username', 'like', $search);
+                $query->orWhere($this->user->table().'.name', 'like', $search);
+                $query->orWhere($this->user->table().'.email', 'like', $search);
+    		});
+    	}
+
+		$this->data['users'] = $this->data['users']->paginate(config('site.num'));
+
+        /*
+		$this->data['users'] = $this->user->with(['roles' => function($query)
+		{
+    		//$query->where('roles.id','=',2);
+		}])->paginate(config('site.num'));
+		*/
+
+		/*
+		$this->data['users'] = $this->role
+		    ->where('id','>=',$this->auth->user()->roles[0]->id)
+		    ->with([$this->user->table()], function($query) use ($search){
+                if (!empty($search)) {
+                    $search = '%'.str_slug($search,'%').'%';
+                    $query->where('username', 'like', $search);
+                    $query->orWhere('name', 'like', $search);
+                    $query->orWhere('email', 'like', $search);
+                }
+		    })
+		    ->paginate(config('site.num'));
+        */
+
+		//dd($this->data['users']);
+
+        /*
 		if (!empty($search)) {
-    		$users->where(function($query) use ($search) {
+    		$this->data['users'] = $this->user->where(function($query) use ($search) {
                 $search = '%'.str_slug($search,'%').'%';
                 $query->where('username', 'like', $search);
                 $query->orWhere('name', 'like', $search);
                 $query->orWhere('email', 'like', $search);
     		});
     	}
+    	*/
+        //$this->data['users'] = $this->data['users']->paginate(config('site.num'));
 
 		$this->data['sitetitle'] = trans('users.titles.management');
-		$this->data['users'] = $users->paginate(config('site.num'));
+
 		return view('users.index')->with($this->data);
 	}
 
@@ -114,10 +156,10 @@ class UserController extends Controller
 	/**
 	 * Update user profile.
 	 *
-	 * @param Illuminate\Http\Request $request
+	 * @paran App\Http\Requests\SaveProfileValidationRequest $request
 	 * @return Response
 	 */
-	public function update(Request $request)
+	public function update(SaveProfileValidationRequest $request)
 	{
         $input = $request->except(['_token', 'q', 'id', 'password', 'password2']);
         $id = $this->auth->id();
@@ -154,10 +196,10 @@ class UserController extends Controller
 	/**
 	 * Save user profile.
 	 *
-	 * @param Illuminate\Http\Request $request
+	 * @param App\Http\Requests\SaveUserValidationRequest
 	 * @return Response
 	 */
-	public function save(Request $request)
+	public function save(SaveUserValidationRequest $request)
 	{
         $input = $request->except(['_token', 'q', 'id', 'password', 'password2', 'role']);
         $id = $request->get('id');
@@ -187,6 +229,8 @@ class UserController extends Controller
             $user = $this->user;
         }
 
+        $input['username'] = strtolower($input['username']);
+
         $user->find($id);
         $user->fill($input);
         $user->save();
@@ -206,7 +250,7 @@ class UserController extends Controller
 	{
         $array = [];
 
-        $roles = $this->role->all();
+        $roles = $this->role->where('id','>',$this->auth->user()->roles[0]->id)->get();
         if (!empty($roles)) {
             foreach ($roles as $r) {
                 $array[$r->id] = $r->role;

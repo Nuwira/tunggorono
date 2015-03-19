@@ -30,6 +30,7 @@ return [
     	'F' => 'Female',
 	],
 	'role' => 'Role',
+	'status' => 'Status',
 
     'active' => 'Active',
     'inactive' => 'Inactive',

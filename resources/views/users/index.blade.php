@@ -41,6 +41,7 @@
                                     <th>{{ trans('auth.username') }}</th>
                                     <th>{{ trans('users.name') }}</th>
                                     <th>{{ trans('users.email') }}</th>
+                                    <th>{{ trans('users.role') }}</th>
                                     @if ($auth->user()->can('user-edit') || $auth->user()->can('user-info'))
                                     <th></th>
                                     @endif
@@ -48,10 +49,11 @@
                             </thead>
                             <tbody>
                                 @foreach ($users as $user)
-                                <tr>
+                                <tr class="{{-- ($user->is_active ? '' : 'danger') --}}">
                                     <td>{{ $user->username }}</td>
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->email }}</td>
+                                    <td>{{ $user->role }}</td>
                                     @if ($auth->user()->can('user-edit') || $auth->user()->can('user-info'))
                                     <td>
                                         <div class="btn-group btn-group-xs pull-right">
@@ -68,7 +70,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        {!! $users->render() !!}
+                        {!! (!empty($users->render()) ? $users->appends(['search' => $search])->render() : '') !!}
                     @endif
 				</div>
 			</div>

@@ -16,6 +16,8 @@ class UserRolePermissionTableSeeder extends Seeder {
         DB::table(Config::get('entrust.permission_role_table'))->truncate();
         $role = Role::find(1);
         $role->perms()->attach(Permission::lists('id'));
+        $role = Role::find(2);
+        $role->perms()->attach(Permission::lists('id'));
 
         // Attach role to user
         //DB::table(Config::get('entrust.role_user_table'))->forceDelete();

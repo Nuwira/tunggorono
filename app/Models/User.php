@@ -25,7 +25,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['username', 'name', 'email', 'password' ,'sex', 'phone', 'birthdate'];
+	protected $fillable = ['username', 'name', 'email', 'password' ,'sex', 'phone', 'birthdate', 'is_active'];
 
 	/**
 	 * The attributes excluded from the model's JSON form.
@@ -41,6 +41,31 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     public function roles()
     {
-        return $this->belongsToMany('App\Models\Role', 'role_user', 'user_id', 'role_id');
+        return $this->belongsToMany(config('entrust.role'), config('entrust.role_user_table'), 'user_id', 'role_id');
     }
+
+    /**
+     * Return table name.
+     *
+     * @return $table
+     */
+    public function table()
+    {
+        return $this->table;
+    }
+
+    public function listMinRole($role_id)
+    {
+        return $this->join(config('entrust.role_user_table'), config('entrust.role_user_table').'.user_id', '=', $this->table.'.id')
+            ->join(config('entrust.roles_table'), config('entrust.roles_table').'.id',' =', config('entrust.role_user_table').'.role_id')
+            ->where(config('entrust.roles_table').'.id', '>=', $role_id)
+            ->select([
+                $this->table.'.*',
+                config('entrust.roles_table').'.role',
+            ]);
+    }
+
+
+
+
 }

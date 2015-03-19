@@ -188,7 +188,7 @@ class TunggoronoTest extends TestCase
 		$rand = str_random(8);
 
 		$response = $this->call('POST', 'user/update', [
-		    'id' => '1',
+		    'id' => 1,
 		    'password' => 'tunggorono',
 		    'password2' => 'tunggorono',
 		    '_token' => Session::token()
@@ -227,7 +227,7 @@ class TunggoronoTest extends TestCase
 
         $response = $this->call('POST', 'user/save', [
 		    'username' => 'kampret',
-		    'role' => 1,
+		    'role' => 2,
 		    'name' => 'Kampret Mencret',
 		    'email' => 'kampret@kalong.com',
 		    'password' => 'tunggorono',
@@ -239,6 +239,8 @@ class TunggoronoTest extends TestCase
 
         $response = $this->call('POST', 'user/save', [
 		    'id' => 2,
+		    'username' => 'testing',
+		    'email' => str_random(8).'@nuwira.co',
 		    'name' => 'Silit Kadal',
 		    '_token' => Session::token()
         ]);
