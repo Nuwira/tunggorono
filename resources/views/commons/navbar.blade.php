@@ -16,8 +16,14 @@
 					<li><a href="{{ url('auth/login') }}">{{ trans('buttons.login') }}</a></li>
 					<!--<li><a href="/auth/register">Register</a></li>-->
 				@else
-					@if ($auth->user()->can('users-list'))
+					@if ($auth->user()->can('user-list'))
 					<li><a href="{{ route('users-list') }}"><i class="fa fa-user fa-lg"></i></a></li>
+					@endif
+					@if ($auth->user()->can('role-list'))
+					<li><a href="{{ route('roles-list') }}"><i class="fa fa-users fa-lg"></i></a></li>
+					@endif
+					@if ($auth->user()->can('permission-list'))
+					<li><a href="{{ route('users-list') }}"><i class="fa fa-key fa-lg"></i></a></li>
 					@endif
 					@if ($auth->user()->can('system-info'))
 					<li><a href="{{ route('system-info') }}" title="{{ trans('system.title') }}"><i class="fa fa-info-circle fa-lg"></i></a></li>

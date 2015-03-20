@@ -52,9 +52,17 @@ class PermissionTableSeeder extends Seeder {
         ]);
 
         Permission::create([
-            'name' => 'users-list',
+            'name' => 'user-list',
             'permission' => 'List Users',
             'description' => 'List users.',
+            'is_default' => 0,
+            'is_readonly' => 1,
+        ]);
+
+        Permission::create([
+            'name' => 'user-info',
+            'permission' => 'View User Info',
+            'description' => 'View user information.',
             'is_default' => 0,
             'is_readonly' => 1,
         ]);
@@ -76,17 +84,25 @@ class PermissionTableSeeder extends Seeder {
         ]);
 
         Permission::create([
-            'name' => 'user-info',
-            'permission' => 'View User Info',
-            'description' => 'View user information.',
+            'name' => 'user-delete',
+            'permission' => 'Delete User',
+            'description' => 'Delete user.',
             'is_default' => 0,
             'is_readonly' => 1,
         ]);
 
         Permission::create([
-            'name' => 'roles-list',
+            'name' => 'role-list',
             'permission' => 'List Roles',
             'description' => 'List roles.',
+            'is_default' => 0,
+            'is_readonly' => 1,
+        ]);
+
+        Permission::create([
+            'name' => 'role-info',
+            'permission' => 'View Role Info',
+            'description' => 'View role information.',
             'is_default' => 0,
             'is_readonly' => 1,
         ]);
@@ -108,17 +124,25 @@ class PermissionTableSeeder extends Seeder {
         ]);
 
         Permission::create([
-            'name' => 'role-info',
-            'permission' => 'View Role Info',
-            'description' => 'View role information.',
+            'name' => 'role-delete',
+            'permission' => 'Delete Role',
+            'description' => 'Delete role.',
             'is_default' => 0,
             'is_readonly' => 1,
         ]);
 
         Permission::create([
-            'name' => 'permissions-list',
+            'name' => 'permission-list',
             'permission' => 'List Permissions',
             'description' => 'List permissions.',
+            'is_default' => 0,
+            'is_readonly' => 1,
+        ]);
+
+        Permission::create([
+            'name' => 'permission-info',
+            'permission' => 'View Permission Info',
+            'description' => 'View permission information.',
             'is_default' => 0,
             'is_readonly' => 1,
         ]);
@@ -140,9 +164,9 @@ class PermissionTableSeeder extends Seeder {
         ]);
 
         Permission::create([
-            'name' => 'permission-info',
-            'permission' => 'View Permission Info',
-            'description' => 'View permission information.',
+            'name' => 'permission-delete',
+            'permission' => 'Delete Permission',
+            'description' => 'Delete permission.',
             'is_default' => 0,
             'is_readonly' => 1,
         ]);

@@ -54,6 +54,12 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->table;
     }
 
+     /**
+     * User list by minimum role.
+     *
+     * @param $role_id
+     * @return $table
+     */
     public function listMinRole($role_id)
     {
         return $this->join(config('entrust.role_user_table'), config('entrust.role_user_table').'.user_id', '=', $this->table.'.id')

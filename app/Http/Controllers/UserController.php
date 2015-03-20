@@ -63,44 +63,34 @@ class UserController extends Controller
 
 		$this->data['users'] = $this->data['users']->paginate(config('site.num'));
 
-        /*
-		$this->data['users'] = $this->user->with(['roles' => function($query)
-		{
-    		//$query->where('roles.id','=',2);
-		}])->paginate(config('site.num'));
-		*/
-
-		/*
-		$this->data['users'] = $this->role
-		    ->where('id','>=',$this->auth->user()->roles[0]->id)
-		    ->with([$this->user->table()], function($query) use ($search){
-                if (!empty($search)) {
-                    $search = '%'.str_slug($search,'%').'%';
-                    $query->where('username', 'like', $search);
-                    $query->orWhere('name', 'like', $search);
-                    $query->orWhere('email', 'like', $search);
-                }
-		    })
-		    ->paginate(config('site.num'));
-        */
-
-		//dd($this->data['users']);
-
-        /*
-		if (!empty($search)) {
-    		$this->data['users'] = $this->user->where(function($query) use ($search) {
-                $search = '%'.str_slug($search,'%').'%';
-                $query->where('username', 'like', $search);
-                $query->orWhere('name', 'like', $search);
-                $query->orWhere('email', 'like', $search);
-    		});
-    	}
-    	*/
-        //$this->data['users'] = $this->data['users']->paginate(config('site.num'));
-
 		$this->data['sitetitle'] = trans('users.titles.management');
 
 		return view('users.index')->with($this->data);
+	}
+
+	/**
+	 * Add user.
+	 *
+	 * @return Response
+	 */
+	public function add()
+	{
+		$this->data['roles'] = $this->roles();
+		$this->data['sitetitle'] = trans('users.titles.add');
+		return view('users.form')->with($this->data);
+	}
+
+	/**
+	 * Info user.
+	 *
+	 * @param $id
+	 * @return Response
+	 */
+	public function info($id)
+	{
+		$this->data['user'] = $this->user->find($id);
+		$this->data['sitetitle'] = trans('users.titles.info', ['username' => $this->data['user']->username]);
+		return view('users.info')->with($this->data);
 	}
 
 	/**
@@ -118,30 +108,6 @@ class UserController extends Controller
 	}
 
     /**
-	 * Info user.
-	 *
-	 * @param $id
-	 * @return Response
-	 */
-	public function info($id)
-	{
-		$this->data['user'] = $this->user->find($id);
-		$this->data['sitetitle'] = trans('users.titles.info', ['username' => $this->data['user']->username]);
-		return view('users.info')->with($this->data);
-	}
-    /**
-	 * Add user.
-	 *
-	 * @return Response
-	 */
-	public function add()
-	{
-		$this->data['roles'] = $this->roles();
-		$this->data['sitetitle'] = trans('users.titles.add');
-		return view('users.form')->with($this->data);
-	}
-
-	/**
 	 * Edit user profile form.
 	 *
 	 * @return Response
@@ -238,7 +204,9 @@ class UserController extends Controller
         // Attach Role
         if (!empty($role)) $user->roles()->sync([$role]);
 
-        return redirect()->route('user-edit',['id' => $user->id])->with('success', trans('success.user', ['username' => $user->username]));
+        return redirect()
+            ->route('user-edit',['id' => $user->id])
+            ->with('success', trans('success.user', ['username' => $user->username]));
 	}
 
 	/**
