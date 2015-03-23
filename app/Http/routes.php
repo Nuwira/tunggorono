@@ -11,9 +11,15 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
+Route::get('/', function() {
+    if (Auth::check()) {
+        return redirect('dashboard');
+    } else {
+        return redirect('auth/login');
+    }
+});
 
-Route::get('home', 'HomeController@index');
+Route::get('dashboard', ['as' => 'dashboard', 'uses' => 'HomeController@index']);
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',
