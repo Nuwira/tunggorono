@@ -47,6 +47,16 @@ class AuthController extends Controller
 	}
 
 	/**
+	 * Show the application login form.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function getLogin()
+	{
+		return view('auth.login')->with(['auth' => $this->auth]);
+	}
+
+	/**
 	 * Handle a login request to the application.
 	 *
 	 * @param  \Illuminate\Http\Request  $request
@@ -59,9 +69,15 @@ class AuthController extends Controller
 		]);
 
 		$credentials = $request->only('username', 'password');
+		$credentials['is_active'] = 1;
 
 		if ($this->auth->attempt($credentials, $request->has('remember'))) {
-			return redirect()->intended($this->redirectPath());
+    		if ($this->auth->user()->can('login-web')) {
+                return redirect()->intended($this->redirectPath())->with('success', trans('success.loggedin',['name' => $this->auth->user()->name]));
+    		} else {
+                $this->auth->logout();
+                return redirect()->guest($this->loginPath())->withErrors(['permission' => trans('errors.403')]);
+    		}
 		}
 
 		return redirect($this->loginPath())

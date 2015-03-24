@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>{{ (!empty($sitetitle) ? $sitetitle .' &mdash; ' : '') . config('site.name') }}</title>
+	<title>{!! (!empty($sitetitle) ? strip_tags($sitetitle) .' &mdash; ' : '') . config('site.name') !!}</title>
 
 	{!! HTML::style('css/app.css') !!}
 	{!! HTML::style('assets/font-awesome/css/font-awesome.min.css') !!}
@@ -22,9 +22,12 @@
 <body>
 	@include('commons.navbar')
 
+	@include('commons.notif')
+
 	@yield('content')
 
 	<!-- Scripts -->
+
 	{!! HTML::script('assets/jquery/jquery.min.js') !!}
 	{!! HTML::script('assets/bootstrap/js/bootstrap.min.js') !!}
 </body>

@@ -26,7 +26,7 @@ return [
 	|
 	*/
 
-	'url' => 'http://localhost',
+	'url' => env('APP_URL', 'http://localhost'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -146,6 +146,10 @@ return [
 		'App\Providers\EventServiceProvider',
 		'App\Providers\RouteServiceProvider',
 
+		'Zizaco\Entrust\EntrustServiceProvider',
+		'Matriphe\Format\FormatServiceProvider',
+		'Jenssegers\Date\DateServiceProvider',
+
 	],
 
 	/*
@@ -197,6 +201,9 @@ return [
 		'Form'      => 'Illuminate\Html\FormFacade',
 		'HTML'      => 'Illuminate\Html\HtmlFacade',
 
+        'Entrust'   => 'Zizaco\Entrust\EntrustFacade',
+        'Format'    => 'Matriphe\Format\Facades\FormatFacade',
+        'Date'      => 'Jenssegers\Date\Date',
 	],
 
 ];
