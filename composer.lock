@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f5c9d61e72412103ac348670e84c467b",
+    "hash": "c8ad1b5cb9a7811dc19b8490193f40f8",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -397,6 +397,54 @@
             "time": "2014-07-14 20:59:35"
         },
         {
+            "name": "jenssegers/date",
+            "version": "v2.0.20",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jenssegers/laravel-date.git",
+                "reference": "422c6682fe68de59398ef89cca45d920afe12436"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jenssegers/laravel-date/zipball/422c6682fe68de59398ef89cca45d920afe12436",
+                "reference": "422c6682fe68de59398ef89cca45d920afe12436",
+                "shasum": ""
+            },
+            "require": {
+                "nesbot/carbon": "*",
+                "php": ">=5.3.0",
+                "symfony/translation": "*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "*",
+                "satooshi/php-coveralls": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Jenssegers\\Date": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jens Segers",
+                    "homepage": "http://jenssegers.be"
+                }
+            ],
+            "description": "A date library to help you work with dates",
+            "keywords": [
+                "date",
+                "datetime",
+                "laravel",
+                "time"
+            ],
+            "time": "2015-03-14 13:21:54"
+        },
+        {
             "name": "jeremeamia/SuperClosure",
             "version": "2.1.0",
             "source": {
@@ -662,6 +710,50 @@
                 "storage"
             ],
             "time": "2015-03-10 11:04:14"
+        },
+        {
+            "name": "matriphe/format",
+            "version": "1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/matriphe/format.git",
+                "reference": "4599017023723504384ece3d59c3ac7d564efbaa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/matriphe/format/zipball/4599017023723504384ece3d59c3ac7d564efbaa",
+                "reference": "4599017023723504384ece3d59c3ac7d564efbaa",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Matriphe\\Format\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Muhammad Zamroni",
+                    "email": "halo@matriphe.com"
+                }
+            ],
+            "description": "Helpers contains common formatting, such as number, bytes, and phone.",
+            "keywords": [
+                "bytes",
+                "format",
+                "helpers",
+                "laravel",
+                "number",
+                "phone"
+            ],
+            "time": "2015-03-03 13:34:33"
         },
         {
             "name": "monolog/monolog",
@@ -1794,6 +1886,73 @@
                 "environment"
             ],
             "time": "2014-12-05 15:19:21"
+        },
+        {
+            "name": "zizaco/entrust",
+            "version": "dev-laravel-5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Zizaco/entrust.git",
+                "reference": "305916c40ed35dd6ebb81379db51ec582df19623"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Zizaco/entrust/zipball/305916c40ed35dd6ebb81379db51ec582df19623",
+                "reference": "305916c40ed35dd6ebb81379db51ec582df19623",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "~5.0",
+                "illuminate/support": "~5.0",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "illuminate/database": "~5.0",
+                "mockery/mockery": "dev-master",
+                "phpunit/phpunit": "~4.1",
+                "sami/sami": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/commands"
+                ],
+                "psr-4": {
+                    "Zizaco\\Entrust\\": "src/Entrust/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andrew Elkins",
+                    "homepage": "http://andrewelkins.com"
+                },
+                {
+                    "name": "Zizaco Zizuini",
+                    "email": "zizaco@gmail.com"
+                },
+                {
+                    "name": "Ben Batschelet",
+                    "homepage": "http://github.com/bbatsche"
+                },
+                {
+                    "name": "Michele Angioni",
+                    "email": "michele.angioni@gmail.com"
+                }
+            ],
+            "description": "This package provides a flexible way to add Role-based Permissions to Laravel",
+            "keywords": [
+                "acl",
+                "auth",
+                "illuminate",
+                "laravel",
+                "permission",
+                "roles"
+            ],
+            "time": "2015-03-20 15:05:21"
         }
     ],
     "packages-dev": [
@@ -2864,7 +3023,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "zizaco/entrust": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
