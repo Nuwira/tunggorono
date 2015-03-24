@@ -10,14 +10,17 @@ Base application based on Laravel 5 to ease our job.
 
 Run this command from `path/where/to/install`.
 
-```
+```bash
 composer create-project nuwira/tunggorono path/where/to/install --prefer-dist --dev
 ```
 
+Or you can clone this repository and then `composer update` from the path.
+
 ### Set Environment
+
 Edit the `.env` file, fill the database section.
 
-```
+```bash
 APP_ENV=local
 APP_DEBUG=true
 APP_KEY=rKgGw2WsrWMAeO2fCJ7nUssERmp61uYW
@@ -32,13 +35,15 @@ SESSION_DRIVER=file
 ```
 
 ### Database Migration
+
 Do migration to build the base data structure.
 
-```
+```bash
 php artisan migrate --seed
 ```
 
 ### Login
+
 Now you can login using this account.
 
 ```
