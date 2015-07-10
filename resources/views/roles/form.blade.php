@@ -36,7 +36,7 @@
                                     @foreach ($permissions as $permission)
                                     <div class="col-md-6">
                                         <label>
-                                        <input type="checkbox" name="permissions[]" value="{{ $permission->id }}" {!! (!empty($inroles) && in_array($role->id,$inroles) ? 'checked' : '') !!}> {{ $permission->permission }}
+                                        <input type="checkbox" name="permissions[]" value="{{ $permission->id }}" {!! (!empty($inroles) && in_array($permission->id,$inroles) ? 'checked' : '') !!}> {{ $permission->permission }}
                                         </label>
                                     </div>
                                     @endforeach
