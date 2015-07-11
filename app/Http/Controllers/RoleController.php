@@ -9,7 +9,7 @@ use App\Models\Permission;
 
 use Date;
 use Format;
-
+use Auth;
 use App\Http\Requests\SaveroleValidationRequest;
 use App\Http\Requests\SaveProfileValidationRequest;
 
@@ -79,6 +79,8 @@ class RoleController extends Controller
 
 		$this->data['sitetitle'] = trans('roles.titles.add');
 
+		$this->data['permissions'] = $this->permission->all();
+
 		return view('roles.form')->with($this->data);
 	}
 
@@ -140,12 +142,12 @@ class RoleController extends Controller
         }
 
         $role->fill($input);
-
-        //dd($permissions);
+        $role->save();
+        $role->perms()->sync($permissions);
 
         return redirect()
             ->route('role-edit',['id' => $role->id])
-            ->with('success', trans('success.role', ['rolename' => $role->rolename]));
+            ->with('success', trans('success.role', ['rolename' => $role->name]));
 	}
 
 	/**
@@ -157,7 +159,7 @@ class RoleController extends Controller
 	{
         $array = [];
 
-        $roles = $this->role->where('id','>',$this->auth->role()->roles[0]->id)->get();
+        $roles = $this->role->where('id','>',Auth::user()->roles()->get()[0]->id)->get();
         if (!empty($roles)) {
             foreach ($roles as $r) {
                 $array[$r->id] = $r->role;
