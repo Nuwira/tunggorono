@@ -14,11 +14,11 @@ Run this command from `path/where/to/install`.
 composer create-project nuwira/tunggorono path/where/to/install --prefer-dist --dev
 ```
 
-Or you can clone this repository and then `composer update` from the path.
+Or you can clone this repository and then `composer install` from the path.
 
 ### Set Environment
 
-Edit the `.env` file, fill the database section.
+Copy `.env.example` file to `.env` and then edit the `.env` file, fill the database section.
 
 ```bash
 APP_ENV=local
