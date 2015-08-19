@@ -15,5 +15,5 @@ return [
 	'profile' => 'Your profile has been saved!',
 	'password' => 'Your password has been updated!',
 	'user' => 'User <strong>:username</strong> has been saved!',
-
+	'role' => 'Role :rolename has been saved'
 ];
