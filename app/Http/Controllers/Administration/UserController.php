@@ -8,8 +8,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Role;
 
-use Date;
 use Format;
+use Carbon\Carbon;
 
 use App\Http\Requests\SaveUserValidationRequest;
 use App\Http\Requests\SaveProfileValidationRequest;
@@ -134,7 +134,7 @@ class UserController extends AuthenticatedController
         array_push($success, trans('success.profile'));
 
 		if (!empty($input['birthdate']) && $input['birthdate'] != '0000-00-00') {
-            $input['birthdate'] = Date::parse($input['birthdate'])->format('Y-m-d');
+            $input['birthdate'] = Carbon::parse($input['birthdate'])->format('Y-m-d');
         } else {
             unset($input['birthdate']);
         }
@@ -172,7 +172,7 @@ class UserController extends AuthenticatedController
         $password2 = $request->get('password_confirmation');
 
         if (!empty($input['birthdate']) && $input['birthdate'] != '0000-00-00') {
-            $input['birthdate'] = Date::parse($input['birthdate'])->format('Y-m-d');
+            $input['birthdate'] = Carbon::parse($input['birthdate'])->format('Y-m-d');
         } else {
             unset($input['birthdate']);
         }
