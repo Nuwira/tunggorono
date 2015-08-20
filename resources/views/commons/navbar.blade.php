@@ -12,7 +12,7 @@
 
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav navbar-right">
-				@if ($auth->guest())
+				@if (empty($auth) || $auth->guest())
 					<li><a href="{{ url('auth/login') }}">{{ trans('buttons.login') }}</a></li>
 					<!--<li><a href="/auth/register">Register</a></li>-->
 				@else
