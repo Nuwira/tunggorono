@@ -31,6 +31,13 @@ class AuthController extends Controller
 	protected $redirectTo = 'dashboard';
 	
 	/**
+	 * The RedirectAfterLogout implementation.
+	 *
+	 * @var RedirectAfterLogout
+	 */
+	protected $redirectAfterLogout = 'auth/login';
+	
+	/**
 	 * Variable used for login.
 	 *
 	 * @var username
@@ -57,5 +64,22 @@ class AuthController extends Controller
 	{
 		return view('auth.login');
 	}
-
+    
+    /**
+	 * Authenticate the user.
+	 *
+	 * @param \Illuminate\Http\Request
+	 * @param App\Models\User
+	 * @return \Illuminate\Http\Response
+	 */
+	public function authenticated(Request $request, User $auth)
+    {
+        if ($auth->can('login-web') && $auth->is_active) {
+            return redirect()->intended($this->redirectPath());
+        } else {
+            return redirect()
+                ->guest($this->loginPath())
+                ->withErrors(['permission' => trans('errors.403')]);
+        }
+    }
 }

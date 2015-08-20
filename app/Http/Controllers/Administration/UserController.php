@@ -124,11 +124,11 @@ class UserController extends AuthenticatedController
 	 */
 	public function update(SaveProfileValidationRequest $request)
 	{
-        $input = $request->except(['_token', 'q', 'id', 'password', 'password2']);
+        $input = $request->except(['_token', 'q', 'id', 'password', 'password_confirmation']);
         $id = $this->auth->id();
 
         $password = $request->get('password');
-        $password2 = $request->get('password2');
+        $password2 = $request->get('password_confirmation');
 
         $success = [];
         array_push($success, trans('success.profile'));
@@ -153,23 +153,23 @@ class UserController extends AuthenticatedController
         $user->fill($input);
         $user->save();
 
-        return redirect('profile')->with('success', $success);
+        return redirect()->route('user-profile')->with('success', $success);
 	}
 
 	/**
-	 * Save user profile.
+	 * Save user info.
 	 *
 	 * @param App\Http\Requests\SaveUserValidationRequest
 	 * @return Response
 	 */
 	public function save(SaveUserValidationRequest $request)
 	{
-        $input = $request->except(['_token', 'q', 'id', 'password', 'password2', 'role']);
+        $input = $request->except(['_token', 'q', 'id', 'password', 'password_confirmation', 'role']);
         $id = $request->get('id');
         $role = $request->get('role');
 
         $password = $request->get('password');
-        $password2 = $request->get('password2');
+        $password2 = $request->get('password_confirmation');
 
         if (!empty($input['birthdate']) && $input['birthdate'] != '0000-00-00') {
             $input['birthdate'] = Date::parse($input['birthdate'])->format('Y-m-d');
