@@ -42,7 +42,19 @@ Do migration to build the base data structure.
 php artisan migrate --seed
 ```
 
-### Login
+## Assets Management
+
+### Using Bower
+
+Install assets components using [Bower](http://bower.io):
+
+```bash
+bower install
+```
+
+### Using Elixir
+
+## Login
 
 Now you can login using this account.
 
