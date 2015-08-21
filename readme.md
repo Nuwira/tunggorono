@@ -34,15 +34,17 @@ CACHE_DRIVER=file
 SESSION_DRIVER=file
 ```
 
-### Database Migration
+## Assets Management
 
-Do migration to build the base data structure.
+For assets, please install [NPM](https://www.npmjs.com) and [Bower](http://bower.io). From root directory, run this command.
+
+### Install NPM
+
+Bower need NPM to run, so install the NPM requirements.
 
 ```bash
-php artisan migrate --seed
+npm install
 ```
-
-## Assets Management
 
 ### Using Bower
 
@@ -52,7 +54,29 @@ Install assets components using [Bower](http://bower.io):
 bower install
 ```
 
+It will install [Bootstrap](http://getbootstrap.com), [jQuery](https://jquery.com), and [Font-Awesome](http://fontawesome.io) to `bower_components` directory.
+
+For configuration, check `bower.json` file.
+
 ### Using Elixir
+
+To compiled these assets, we use [Gulp](http://gulpjs.com). Run the compilation using this command.
+
+```bash
+gulp
+```
+
+The assets will be placed in `public/css` for CSS, `public/js` for JS, and `public/fonts` for fonts. Elixir will generate `public/build` that will be used for assets versioning.
+
+For configuration, check `gulp.js` file.
+
+## Database Migration
+
+Do migration to build the base data structure.
+
+```bash
+php artisan migrate --seed
+```
 
 ## Login
 
