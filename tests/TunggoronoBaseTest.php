@@ -197,6 +197,73 @@ class TunggoronoBaseTest extends TestCase
     }
 	
 	/**
+	 * User management functional test.
+	 *
+	 * @return void
+	 */
+	public function testRoles()
+	{
+		$this->artisan('db:seed');
+		
+		$this->login();
+		
+		$role = 'testing';
+		$roleid = 3;
+		
+		// Create new role
+		$this->visit('roles')
+		    ->click(trans('roles.titles.add'))
+		    ->seePageIs('role/add')
+		    ->type($role, 'role')
+		    ->type('For Testing purpose', 'description')
+		    ->press(trans('buttons.save'))
+		    ->seePageIs('role/edit/'.$roleid)
+		    ->see(trans('success.role', ['rolename' => $role]));
+        
+        // Create user with new role
+        $user = factory(User::class)->make();
+        $username = 'testing';
+        $password = 'testing';
+		$id = 2;
+		
+        $this->visit('user/add')
+            ->seePageIs('user/add')
+		    ->type($username, 'username')
+		    ->type($user->name, 'name')
+		    ->type($user->email, 'email')
+		    ->type($user->birthdate, 'birthdate')
+		    ->select($roleid, 'role')
+		    ->select($user->sex, 'sex')
+		    ->type($password, 'password')
+		    ->type($password, 'password_confirmation')
+		    ->select('1', 'is_active')
+		    ->press(trans('buttons.save'))
+		    ->seePageIs('user/edit/'.$id)
+		    ->see(trans('success.user', ['username' => $username]));
+		
+        $this->logout();
+        
+        $this->visit('/')
+		    ->seePageIs('auth/login')
+		    ->type($username, 'username')
+		    ->type($password, 'password')
+		    ->press(trans('buttons.login'))
+		    ->seePageIs('auth/login')
+		    ->see(trans('errors.403'));
+        
+        $this->login();
+        
+        $this->visit('role/edit/'.$roleid)
+            ->submitForm(trans('buttons.save'), ['permissions' => [0 => '1']]);
+            
+        $this->logout();
+        
+        $this->login($username, $password);
+        
+        $this->logout();
+	}
+	
+	/**
 	 * Login routine functional test.
 	 *
 	 * @return void

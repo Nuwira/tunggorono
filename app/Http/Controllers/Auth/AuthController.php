@@ -31,6 +31,13 @@ class AuthController extends Controller
 	protected $redirectPath = 'dashboard';
 	
 	/**
+	 * The RedirectTo implementation.
+	 *
+	 * @var RedirectTo
+	 */
+	protected $redirectTo = 'dashboard';
+	
+	/**
 	 * The RedirectAfterLogout implementation.
 	 *
 	 * @var RedirectAfterLogout
@@ -74,11 +81,13 @@ class AuthController extends Controller
 	 */
 	public function authenticated(Request $request, User $auth)
     {
+        //dd($auth->can('login-web'));
+        
         if ($auth->can('login-web')) {
             return redirect()->intended($this->redirectPath());
         } else {
-            return redirect()
-                ->guest($this->loginPath())
+            Auth::logout();
+            return redirect(property_exists($this, 'redirectAfterLogout') ? $this->redirectAfterLogout : '/')
                 ->withErrors(['permission' => trans('errors.403')]);
         }
     }
