@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/Nuwira/tunggorono.svg)](https://travis-ci.org/Nuwira/tunggorono)
 
-Base application based on Laravel 5 to ease our job.
+Base application based on Laravel 5.1 (LTS) to ease our job.
 
 ## Installation
 
