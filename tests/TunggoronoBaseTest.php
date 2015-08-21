@@ -94,7 +94,7 @@ class TunggoronoBaseTest extends TestCase
 	}
 	
 	/**
-	 * Edit profile functional test.
+	 * User management functional test.
 	 *
 	 * @return void
 	 */
@@ -109,6 +109,7 @@ class TunggoronoBaseTest extends TestCase
 		$user = factory(User::class)->make();
 		$username = $user->username;
 		$password = $user->password;
+		$id = 2;
 		
 		// List user
 		$this->visit('users')
@@ -127,11 +128,11 @@ class TunggoronoBaseTest extends TestCase
 		    ->type($password, 'password_confirmation')
 		    ->select('1', 'is_active')
 		    ->press(trans('buttons.save'))
-		    ->seePageIs('user/edit/2')
+		    ->seePageIs('user/edit/'.$id)
 		    ->see(trans('success.user', ['username' => $username]))
 		    ->type($user->name, 'name')
 		    ->press(trans('buttons.save'))
-		    ->seePageIs('user/edit/2');
+		    ->seePageIs('user/edit/'.$id);
         
         // Check user
         $this->click(trans('users.titles.management'))
@@ -140,12 +141,59 @@ class TunggoronoBaseTest extends TestCase
         
         // Check database
         $this->seeInDatabase('users', ['username' => $username]);
+        
+        // Search
+        $this->type('nuw', 'search')
+            ->press(trans('buttons.search'))
+            ->see($this->username);
 		
 		$this->logout();
 		
 		// Login using new user
 		$this->login($username, $password);
+		
+		// Edit new user
+		$this->visit('users')
+		    ->see($username)
+		    ->visit('user/edit/'.$id)
+		    ->seePageIs('user/edit/'.$id)
+		    ->see(trans('users.titles.edit', ['username' => $username]))
+		    ->type($user->name, 'name')
+		    ->press(trans('buttons.save'))
+		    ->seePageIs('user/edit/'.$id)
+		    ->see(trans('success.user', ['username' => $username]));
+        
+        $password = str_random(10);
+        
+        // Change Password
+        $this->type($password, 'password')
+            ->type($password, 'password_confirmation')
+            ->press(trans('buttons.save'))
+		    ->seePageIs('user/edit/'.$id)
+		    ->see(trans('success.user', ['username' => $username]));
+		
 		$this->logout();
+		
+		$this->login($username, $password);
+		$this->logout();
+		
+		// Make user inactive
+		$this->login();
+		$this->visit('user/edit/'.$id)
+		    ->select('0', 'is_active')
+		    ->press(trans('buttons.save'))
+		    ->seePageIs('user/edit/'.$id)
+		    ->see(trans('success.user', ['username' => $username]));
+        $this->logout();
+        
+        // Failed to log in
+        $this->visit('/')
+		    ->seePageIs('auth/login')
+		    ->type($username, 'username')
+		    ->type($password, 'password')
+		    ->press(trans('buttons.login'))
+		    ->seePageIs('auth/login');
+		    
     }
 	
 	/**

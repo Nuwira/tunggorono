@@ -7,5 +7,17 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 abstract class Controller extends BaseController {
 
 	use DispatchesCommands, ValidatesRequests;
+	
+	/**
+	 * Variable used to hold data in view.
+	 *
+	 * @var array
+	 */
+	public $data = [];
+
+	public function __construct()
+	{
+    	parent::__construct();
+	}
 
 }

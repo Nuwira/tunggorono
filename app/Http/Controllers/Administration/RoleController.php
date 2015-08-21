@@ -128,7 +128,7 @@ class RoleController extends AuthenticatedController
 	{
         $input = $request->except(['_token', 'q', 'id', 'permissions']);
         $id = $request->get('id');
-        $permissions = $request->get('permissions');
+        $permissions = $request->get('permissions', []);
 
         $input['name'] = str_slug($input['role']);
 

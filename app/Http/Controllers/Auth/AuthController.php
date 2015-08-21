@@ -24,11 +24,11 @@ class AuthController extends Controller
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
     
     /**
-	 * The RedirectTo implementation.
+	 * The RedirectPath implementation.
 	 *
-	 * @var RedirectTo
+	 * @var RedirectPath
 	 */
-	protected $redirectTo = 'dashboard';
+	protected $redirectPath = 'dashboard';
 	
 	/**
 	 * The RedirectAfterLogout implementation.
@@ -74,12 +74,26 @@ class AuthController extends Controller
 	 */
 	public function authenticated(Request $request, User $auth)
     {
-        if ($auth->can('login-web') && $auth->is_active) {
+        if ($auth->can('login-web')) {
             return redirect()->intended($this->redirectPath());
         } else {
             return redirect()
                 ->guest($this->loginPath())
                 ->withErrors(['permission' => trans('errors.403')]);
         }
+    }
+    
+    /**
+     * Get the needed authorization credentials from the request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    protected function getCredentials(Request $request)
+    {
+        $credentials = $request->only($this->loginUsername(), 'password');
+        $credentials['is_active'] = 1;
+        
+        return $credentials;
     }
 }

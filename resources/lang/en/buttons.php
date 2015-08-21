@@ -24,6 +24,6 @@ return [
 	"activate" => "Activate",
 	"deactivate" => "Deactivate",
 	"send" => "Send",
-	"update" => "Update"
-
+	"update" => "Update",
+    "search" => "Search",
 ];

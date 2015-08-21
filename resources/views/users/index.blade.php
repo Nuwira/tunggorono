@@ -19,7 +19,7 @@
                             <div class="input-group">
                             <input type="text" class="form-control" name="search" value="{{ $search or '' }}" placeholder="{{ trans('users.search') }}">
                             <span class="input-group-btn">
-                                <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+                                <button class="btn btn-default" type="submit"><i class="fa fa-search"></i>{{ ($env == 'testing' ? trans('buttons.search') : '') }}</button>
                             </span>
                             </div>
                             </form>
@@ -49,7 +49,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($users as $user)
-                                <tr class="{{-- ($user->is_active ? '' : 'danger') --}}">
+                                <tr class="{{ ($user->is_active ? '' : 'danger') }}">
                                     <td>{{ $user->username }}</td>
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->email }}</td>

@@ -17,13 +17,6 @@ abstract class AuthenticatedController extends BaseController {
 	*/
 
 	/**
-	 * Variable used to hold data in view.
-	 *
-	 * @var array
-	 */
-	public $data = [];
-
-	/**
 	 * Create a new controller instance.
 	 *
 	 * @param Illuminate\Auth\Guard $auth
@@ -34,6 +27,8 @@ abstract class AuthenticatedController extends BaseController {
 		$this->middleware('permission');
 
 		$this->auth = $this->data['auth'] = $auth;
+		
+		$this->env = $this->data['env'] = getenv('APP_ENV');
 	}
 
 }
