@@ -11,20 +11,14 @@
 |
 */
 
-$factory->define(App\Models\User::class, function (Faker\Generator $faker) {
-    $locale = config('app.locale');
-    $faker->locale = strtolower($locale).'_'.strtoupper($locale);
-    
-    $sex = ['M', 'F'];
-    
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
+$factory->define(App\User::class, function (Faker\Generator $faker) {
+    static $password;
+
     return [
-        'username' => strtolower($faker->username),
         'name' => $faker->name,
-        'email' => $faker->email,
-        'password' => bcrypt(str_random(10)),
+        'email' => $faker->unique()->safeEmail,
+        'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
-        'birthdate' => $faker->dateTimeThisCentury->format('Y-m-d'),
-        'phone' => $faker->phoneNumber,
-        'sex' => $sex[rand(0, 1)],
     ];
 });
