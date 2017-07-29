@@ -64,6 +64,13 @@ Make sure you change this login info in the seeder on the production.
 
 For our application specification, we do not support registration by user. All registration process is done by administrator.
 
+## Packages
+
+Tunggorono is utilize some amazing packages. Here are some main package list.
+
+ * [JWT Auth](https://github.com/tymondesigns/jwt-auth) for API token authentication
+ * [Bandrek](https://github.com/Nuwira/bandrek) for lost password token
+
 ## Contribution
 
 Basically we're open for contribution via pull requests. If you have discovered a bug or have an idea, don't hesitate to make a pull request.
