@@ -8,6 +8,10 @@ This application bootstrap is used by [Nuwira](https://nuwira.co.id) to build ap
 
 Please keep in mind that the master branch is unstable.
 
+## Language
+
+Tunggorono is using Bahasa Indonesia (Indonesian) for locale and main language settings.
+
 ## Installation
 
 Becaues Tunggorono is based on Laravel, the installation process is similar, just like installing Laravel.
