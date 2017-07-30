@@ -1,0 +1,24 @@
+body {
+    padding-top: $body-padding-top;
+}
+
+.jumbotron {
+    min-height: $jumbotron-height;
+    
+    h1 {
+        font-family: $font-ubuntu;
+        text-transform: uppercase;
+        font-weight: 200;
+        margin-bottom: ($body-padding-top * .5);
+    }
+}
+
+.panel-auth {
+    min-height: $jumbotron-height;
+}
+
+.navbar {
+    font-family: $font-ubuntu;
+    text-transform: uppercase;
+    font-weight: 200;
+}

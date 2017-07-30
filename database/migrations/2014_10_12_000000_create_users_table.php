@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('phone', 15)->nullable();
             $table->date('birthdate')->nullable();
             $table->enum('gender', ['M', 'F'])->nullable();
+            $table->boolean('is_active')->unsigned();
             $table->rememberToken();
             $table->timestamps();
         });

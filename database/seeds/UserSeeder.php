@@ -20,6 +20,7 @@ class UserSeeder extends Seeder
             'email' => 'tunggorono@nuwira.co.id',
             'password' => bcrypt(app()->environment('production') ? str_random() : 'tunggorono'),
             'role_id' => 1,
+            'is_active' => 1,
         ]);
     }
 }

@@ -9,23 +9,32 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'name', 'email', 'password', 'phone', 'role_id', 'birthdate', 'gender'
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
         'password', 'remember_token',
     ];
+    
+    protected $dates = [
+        'birthdate'
+    ];
+    
+    protected $casts = [
+        'is_active' => 'boolean',
+    ];
+    
+    public function setGenderAttribute($value)
+    {
+        $value = strtoupper($value);
+        
+        if (! in_array($value, ['M', 'F'])) {
+            $value = null;
+        }
+        
+        $this->attributes['gender'] = $value;
+    }
     
     public function role()
     {
