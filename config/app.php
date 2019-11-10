@@ -168,6 +168,7 @@ return [
         Laravel\Tinker\TinkerServiceProvider::class,
         Nuwira\Bandrek\BandrekServiceProvider::class,
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
+        Matriphe\Larinfo\LarinfoServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -230,6 +231,7 @@ return [
         
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
+        'Larinfo' => Matriphe\Larinfo\LarinfoFacade::class,
         
     ],
 
